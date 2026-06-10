@@ -1,0 +1,19 @@
+---
+import PostCard from "../../components/PostCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { posts } from "../../data/posts";
+---
+
+<BaseLayout title="Writing" description="Richard_L 的文章与学习笔记。">
+  <section class="page-hero">
+    <p class="eyebrow">@Richardlxr · Writing</p>
+    <h1>文章与笔记</h1>
+    <p>把学习路线、项目复盘和 AI Agent 工作流写下来，给之后的自己留一条清楚的回路。</p>
+  </section>
+
+  <section class="content-section page-section" aria-label="文章列表">
+    <div class="post-list">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+</BaseLayout>

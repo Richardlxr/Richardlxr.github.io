@@ -1,0 +1,41 @@
+---
+import { ArrowLeft } from "@lucide/astro";
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  date: string;
+  tags: string[];
+  readingTime: string;
+}
+
+const { title, description, date, tags, readingTime } = Astro.props;
+const displayDate = new Intl.DateTimeFormat("zh-CN", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit"
+}).format(new Date(date));
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="article-page">
+    <a class="back-link" href="/writing/">
+      <ArrowLeft size={17} strokeWidth={2.2} aria-hidden="true" />
+      Writing
+    </a>
+    <header class="article-hero">
+      <p class="eyebrow">@Richardlxr · Notes</p>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <div class="article-meta">
+        <time datetime={date}>{displayDate}</time>
+        <span>{readingTime}</span>
+        {tags.map((tag) => <span>{tag}</span>)}
+      </div>
+    </header>
+    <div class="article-body">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

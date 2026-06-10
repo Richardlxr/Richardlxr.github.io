@@ -1,0 +1,19 @@
+---
+import ProjectCard from "../../components/ProjectCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { projects } from "../../data/projects";
+---
+
+<BaseLayout title="Projects" description="Richard_L 的项目陈列室。">
+  <section class="page-hero">
+    <p class="eyebrow">@Richardlxr · Projects</p>
+    <h1>项目陈列室</h1>
+    <p>从学习仓库到 Agent 工具链，把每一次折腾都尽量变成可以复用、可以展示、可以继续生长的东西。</p>
+  </section>
+
+  <section class="content-section page-section" aria-label="项目列表">
+    <div class="project-grid project-grid-wide">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+</BaseLayout>

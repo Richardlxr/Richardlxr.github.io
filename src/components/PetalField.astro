@@ -1,0 +1,13 @@
+---
+const petals = Array.from({ length: 18 }, (_, index) => {
+  const x = [9, 18, 31, 44, 57, 68, 77, 87, 96, 13, 25, 39, 52, 64, 73, 84, 91, 6][index];
+  const delay = [0, 3, 7, 1, 9, 5, 2, 11, 6, 13, 4, 10, 8, 15, 12, 17, 14, 19][index];
+  const duration = [17, 21, 19, 23, 18, 26, 20, 24, 22, 25, 19, 27, 21, 23, 18, 26, 20, 24][index];
+  const size = [10, 8, 12, 7, 9, 11, 8, 13, 9, 10, 7, 12, 8, 11, 9, 13, 8, 10][index];
+  return `--x: ${x}%; --delay: ${delay}s; --duration: ${duration}s; --size: ${size}px;`;
+});
+---
+
+<div class="petal-field" aria-hidden="true">
+  {petals.map((style, index) => <span class="petal" data-petal={index} style={style}></span>)}
+</div>

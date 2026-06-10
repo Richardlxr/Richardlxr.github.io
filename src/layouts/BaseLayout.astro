@@ -1,0 +1,125 @@
+---
+import PetalField from "../components/PetalField.astro";
+import SettingsPanel from "../components/SettingsPanel.astro";
+import SiteFooter from "../components/Footer.astro";
+import SiteNav from "../components/SiteNav.astro";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "Richard_L — 个人博客",
+  description = "Richard_L 的个人博客，记录 C++、数据结构、AI Agent 工具链和项目折腾。",
+  image = "/images/profile-avatar.png"
+} = Astro.props;
+
+const pageTitle = title.includes("Richard_L") ? title : `${title} · Richard_L`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://richardlxr.github.io").toString();
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#fbf7f0" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{pageTitle}</title>
+    <script is:inline>
+      (() => {
+        try {
+          const root = document.documentElement;
+          const saved = localStorage.getItem("theme-choice") || "system";
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          root.dataset.themeChoice = saved;
+          root.dataset.theme = saved === "system" ? (prefersDark ? "dark" : "light") : saved;
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <PetalField />
+    <SiteNav />
+    <main id="content">
+      <slot />
+    </main>
+    <SiteFooter />
+    <SettingsPanel />
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
+        const themeButtons = document.querySelectorAll("[data-theme-choice]");
+        const settingsToggle = document.querySelector("[data-settings-toggle]");
+        const settingsPanel = document.querySelector("[data-settings-panel]");
+        const petalRange = document.querySelector("[data-petal-count]");
+        const petals = Array.from(document.querySelectorAll("[data-petal]"));
+
+        const setTheme = (choice) => {
+          const resolved = choice === "system" ? (media.matches ? "dark" : "light") : choice;
+          root.dataset.themeChoice = choice;
+          root.dataset.theme = resolved;
+          localStorage.setItem("theme-choice", choice);
+          themeButtons.forEach((button) => {
+            button.setAttribute("aria-pressed", String(button.dataset.themeChoice === choice));
+          });
+        };
+
+        const setPetalCount = (count) => {
+          petals.forEach((petal, index) => {
+            petal.hidden = index >= count;
+          });
+          if (petalRange) {
+            petalRange.value = String(count);
+          }
+          localStorage.setItem("petal-count", String(count));
+        };
+
+        themeButtons.forEach((button) => {
+          button.addEventListener("click", () => setTheme(button.dataset.themeChoice));
+        });
+
+        media.addEventListener("change", () => {
+          if ((localStorage.getItem("theme-choice") || "system") === "system") {
+            setTheme("system");
+          }
+        });
+
+        settingsToggle?.addEventListener("click", () => {
+          const isOpen = settingsPanel?.hidden;
+          if (settingsPanel) {
+            settingsPanel.hidden = !isOpen;
+          }
+          settingsToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!settingsPanel || settingsPanel.hidden) return;
+          const target = event.target;
+          if (target instanceof Node && !settingsPanel.contains(target) && !settingsToggle?.contains(target)) {
+            settingsPanel.hidden = true;
+            settingsToggle?.setAttribute("aria-expanded", "false");
+          }
+        });
+
+        petalRange?.addEventListener("input", () => setPetalCount(Number(petalRange.value)));
+
+        setTheme(localStorage.getItem("theme-choice") || root.dataset.themeChoice || "system");
+        setPetalCount(Number(localStorage.getItem("petal-count") || "12"));
+      })();
+    </script>
+  </body>
+</html>

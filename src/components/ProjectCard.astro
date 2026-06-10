@@ -1,0 +1,27 @@
+---
+import { ExternalLink, Sparkles } from "@lucide/astro";
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<article class:list={["project-card", `project-card--${project.accent}`]}>
+  <a href={project.href} target="_blank" rel="noreferrer" aria-label={`${project.name} 项目链接`}>
+    <span class="project-status">
+      <Sparkles size={15} strokeWidth={2.2} aria-hidden="true" />
+      {project.status}
+    </span>
+    <span class="project-title-row">
+      <strong>{project.name}</strong>
+      <ExternalLink size={17} strokeWidth={2.2} aria-hidden="true" />
+    </span>
+    <span class="project-summary">{project.summary}</span>
+    <span class="tag-list compact">
+      {project.tags.map((tag) => <span>{tag}</span>)}
+    </span>
+  </a>
+</article>

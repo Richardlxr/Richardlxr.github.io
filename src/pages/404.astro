@@ -1,0 +1,16 @@
+---
+import { Home } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404" description="页面没有找到。">
+  <section class="page-hero not-found">
+    <p class="eyebrow">404</p>
+    <h1>这里暂时没有内容</h1>
+    <p>可能是链接还没写好，也可能是这篇笔记还在路上。</p>
+    <a class="button button-primary" href="/">
+      <Home size={18} strokeWidth={2.2} aria-hidden="true" />
+      回到首页
+    </a>
+  </section>
+</BaseLayout>

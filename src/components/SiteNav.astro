@@ -1,0 +1,34 @@
+---
+import { BriefcaseBusiness, Home, PenLine, UserRound } from "@lucide/astro";
+
+const currentPath = Astro.url.pathname;
+const navItems = [
+  { href: "/", label: "Home", icon: Home },
+  { href: "/writing/", label: "Writing", icon: PenLine },
+  { href: "/projects/", label: "Projects", icon: BriefcaseBusiness },
+  { href: "/about/", label: "About", icon: UserRound }
+];
+
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<a class="skip-link" href="#content">跳到内容</a>
+<header class="site-header">
+  <nav class="site-nav" aria-label="主导航">
+    <a class="brand" href="/" aria-label="Richard_L 首页">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Richard_L</span>
+    </a>
+    <div class="nav-links">
+      {
+        navItems.map(({ href, label, icon: Icon }) => (
+          <a class:list={["nav-link", isActive(href) && "is-active"]} href={href} aria-label={label}>
+            <Icon size={16} strokeWidth={2.2} aria-hidden="true" />
+            <span>{label}</span>
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+</header>
