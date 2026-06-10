@@ -4,7 +4,7 @@ import { Monitor, Moon, Settings, Sun } from "@lucide/astro";
 
 <div class="settings-dock">
   <button class="icon-button" type="button" aria-label="站点设置" aria-expanded="false" data-settings-toggle>
-    <Settings size={18} strokeWidth={2.2} aria-hidden="true" />
+    <Settings size={18} stroke-width={2.2} aria-hidden="true" />
   </button>
   <div class="settings-panel" data-settings-panel hidden>
     <p class="settings-title">站点设置</p>
@@ -12,13 +12,13 @@ import { Monitor, Moon, Settings, Sun } from "@lucide/astro";
       <span>主题</span>
       <div class="segmented-control" role="group" aria-label="主题">
         <button type="button" aria-label="跟随系统" title="跟随系统" data-theme-choice="system">
-          <Monitor size={16} strokeWidth={2.2} aria-hidden="true" />
+          <Monitor size={16} stroke-width={2.2} aria-hidden="true" />
         </button>
         <button type="button" aria-label="浅色" title="浅色" data-theme-choice="light">
-          <Sun size={16} strokeWidth={2.2} aria-hidden="true" />
+          <Sun size={16} stroke-width={2.2} aria-hidden="true" />
         </button>
         <button type="button" aria-label="深色" title="深色" data-theme-choice="dark">
-          <Moon size={16} strokeWidth={2.2} aria-hidden="true" />
+          <Moon size={16} stroke-width={2.2} aria-hidden="true" />
         </button>
       </div>
     </div>

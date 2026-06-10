@@ -12,12 +12,12 @@ const { project } = Astro.props;
 <article class:list={["project-card", `project-card--${project.accent}`]}>
   <a href={project.href} target="_blank" rel="noreferrer" aria-label={`${project.name} 项目链接`}>
     <span class="project-status">
-      <Sparkles size={15} strokeWidth={2.2} aria-hidden="true" />
+      <Sparkles size={15} stroke-width={2.2} aria-hidden="true" />
       {project.status}
     </span>
     <span class="project-title-row">
       <strong>{project.name}</strong>
-      <ExternalLink size={17} strokeWidth={2.2} aria-hidden="true" />
+      <ExternalLink size={17} stroke-width={2.2} aria-hidden="true" />
     </span>
     <span class="project-summary">{project.summary}</span>
     <span class="tag-list compact">

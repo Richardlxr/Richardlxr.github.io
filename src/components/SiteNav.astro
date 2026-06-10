@@ -24,7 +24,7 @@ const isActive = (href: string) =>
       {
         navItems.map(({ href, label, icon: Icon }) => (
           <a class:list={["nav-link", isActive(href) && "is-active"]} href={href} aria-label={label}>
-            <Icon size={16} strokeWidth={2.2} aria-hidden="true" />
+            <Icon size={16} stroke-width={2.2} aria-hidden="true" />
             <span>{label}</span>
           </a>
         ))

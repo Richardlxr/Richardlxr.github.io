@@ -17,7 +17,7 @@ const date = new Intl.DateTimeFormat("zh-CN", {
 <article class="post-card">
   <a class="post-card-link" href={post.href} aria-label={`阅读：${post.title}`}>
     <span class="post-icon" aria-hidden="true">
-      <BookOpen size={20} strokeWidth={2.1} />
+      <BookOpen size={20} stroke-width={2.1} />
     </span>
     <span class="post-content">
       <span class="post-row">
@@ -30,6 +30,6 @@ const date = new Intl.DateTimeFormat("zh-CN", {
         {post.tags.map((tag) => <span>{tag}</span>)}
       </span>
     </span>
-    <ArrowRight class="post-arrow" size={18} strokeWidth={2.2} aria-hidden="true" />
+    <ArrowRight class="post-arrow" size={18} stroke-width={2.2} aria-hidden="true" />
   </a>
 </article>
