@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import PetalField from "../components/PetalField.astro";
 import SettingsPanel from "../components/SettingsPanel.astro";
 import SiteFooter from "../components/Footer.astro";
@@ -36,11 +37,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://richardlxr.
     <meta property="og:image" content={image} />
     <meta name="twitter:card" content="summary_large_image" />
     <title>{pageTitle}</title>
-    <script is:inline>
+    <ClientRouter />
+    <script is:inline data-astro-rerun>
       (() => {
         try {
           const root = document.documentElement;
-          const saved = localStorage.getItem("theme-choice") || "system";
+          const stored = localStorage.getItem("theme-choice");
+          const saved = ["system", "light", "dark"].includes(stored) ? stored : "system";
           const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
           root.dataset.themeChoice = saved;
           root.dataset.theme = saved === "system" ? (prefersDark ? "dark" : "light") : saved;
@@ -58,8 +61,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://richardlxr.
     </main>
     <SiteFooter />
     <SettingsPanel />
-    <script is:inline>
+    <script is:inline data-astro-rerun>
       (() => {
+        window.__richardBlogControls?.abort?.();
+        const controller = new AbortController();
+        window.__richardBlogControls = controller;
+        const { signal } = controller;
         const root = document.documentElement;
         const media = window.matchMedia("(prefers-color-scheme: dark)");
         const themeButtons = document.querySelectorAll("[data-theme-choice]");
@@ -67,8 +74,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://richardlxr.
         const settingsPanel = document.querySelector("[data-settings-panel]");
         const petalRange = document.querySelector("[data-petal-count]");
         const petals = Array.from(document.querySelectorAll("[data-petal]"));
+        const normalizeThemeChoice = (choice) => ["system", "light", "dark"].includes(choice) ? choice : "system";
 
         const setTheme = (choice) => {
+          choice = normalizeThemeChoice(choice);
           const resolved = choice === "system" ? (media.matches ? "dark" : "light") : choice;
           root.dataset.themeChoice = choice;
           root.dataset.theme = resolved;
@@ -89,14 +98,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://richardlxr.
         };
 
         themeButtons.forEach((button) => {
-          button.addEventListener("click", () => setTheme(button.dataset.themeChoice));
+          button.addEventListener("click", () => setTheme(button.dataset.themeChoice), { signal });
         });
 
         media.addEventListener("change", () => {
-          if ((localStorage.getItem("theme-choice") || "system") === "system") {
+          if (normalizeThemeChoice(localStorage.getItem("theme-choice")) === "system") {
             setTheme("system");
           }
-        });
+        }, { signal });
 
         settingsToggle?.addEventListener("click", () => {
           const isOpen = settingsPanel?.hidden;
@@ -104,7 +113,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://richardlxr.
             settingsPanel.hidden = !isOpen;
           }
           settingsToggle.setAttribute("aria-expanded", String(isOpen));
-        });
+        }, { signal });
 
         document.addEventListener("click", (event) => {
           if (!settingsPanel || settingsPanel.hidden) return;
@@ -113,9 +122,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://richardlxr.
             settingsPanel.hidden = true;
             settingsToggle?.setAttribute("aria-expanded", "false");
           }
-        });
+        }, { signal });
 
-        petalRange?.addEventListener("input", () => setPetalCount(Number(petalRange.value)));
+        petalRange?.addEventListener("input", () => setPetalCount(Number(petalRange.value)), { signal });
 
         setTheme(localStorage.getItem("theme-choice") || root.dataset.themeChoice || "system");
         setPetalCount(Number(localStorage.getItem("petal-count") || "12"));
