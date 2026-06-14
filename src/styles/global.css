@@ -683,7 +683,15 @@ main {
 }
 
 .post-card {
+  display: grid;
   overflow: hidden;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.post-card:hover,
+.post-card:focus-within {
+  background: color-mix(in srgb, var(--violet-soft) 58%, transparent);
+  transform: translateY(-2px);
 }
 
 .post-card-link {
@@ -691,14 +699,9 @@ main {
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 16px;
   min-height: 132px;
+  height: 100%;
   align-items: start;
   padding: 20px;
-  transition: transform 180ms ease, background 180ms ease;
-}
-
-.post-card-link:hover {
-  background: color-mix(in srgb, var(--violet-soft) 58%, transparent);
-  transform: translateY(-2px);
 }
 
 .post-icon {
@@ -774,22 +777,25 @@ main {
 }
 
 .project-card {
+  display: grid;
   overflow: hidden;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  background: color-mix(in srgb, var(--violet-soft) 48%, transparent);
+  transform: translateY(-2px);
 }
 
 .project-card a {
   display: grid;
   min-height: 230px;
+  height: 100%;
   align-content: start;
   gap: 14px;
   padding: 20px;
   border-top: 4px solid var(--violet);
-  transition: transform 180ms ease, background 180ms ease;
-}
-
-.project-card a:hover {
-  background: color-mix(in srgb, var(--violet-soft) 48%, transparent);
-  transform: translateY(-2px);
 }
 
 .project-card--teal a {
