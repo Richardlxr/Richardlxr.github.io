@@ -26,14 +26,32 @@ src/pages/
 src/pages/index.astro                 -> /
 src/pages/about.astro                 -> /about/
 src/pages/writing/index.astro         -> /writing/
-src/pages/writing/cpp-learning-map.astro -> /writing/cpp-learning-map/
+src/pages/writing/[slug].astro        -> /writing/每篇文章的文件名/
 ```
+
+```text
+src/content/posts/
+```
+
+Markdown 文章目录。这里的每个 `.md` 文件都会自动变成一篇文章。
+
+例子：
+
+```text
+src/content/posts/blog-maintenance-log.md -> /writing/blog-maintenance-log/
+```
+
+```text
+src/content.config.ts
+```
+
+文章元信息规则。它会检查每篇 Markdown 顶部有没有标题、摘要、日期、标签等字段。
 
 ```text
 src/data/posts.ts
 ```
 
-文章列表数据。首页和文章列表页会从这里读取文章标题、摘要、日期、标签和链接。
+文章列表辅助代码。首页和文章列表页会从 Markdown 文章自动生成标题、摘要、日期、标签和链接。
 
 ```text
 src/data/projects.ts
@@ -116,8 +134,7 @@ npm run dev
 
 - 改首页：`src/pages/index.astro`
 - 改关于页：`src/pages/about.astro`
-- 改文章列表：`src/data/posts.ts`
-- 改文章正文：`src/pages/writing/*.astro`
+- 新增或修改文章：`src/content/posts/*.md`
 - 改项目卡片：`src/data/projects.ts`
 - 改样式：`src/styles/global.css`
 
@@ -182,63 +199,45 @@ https://richardlxr.github.io/
 我的博客维护日志
 ```
 
-### 1. 新建文章页面
+### 1. 新建 Markdown 文章
 
 新建：
 
 ```text
-src/pages/writing/blog-maintenance-log.astro
+src/content/posts/blog-maintenance-log.md
 ```
 
 内容模板：
 
-```astro
+```md
 ---
-import ArticleLayout from "../../layouts/ArticleLayout.astro";
+title: "我的博客维护日志"
+description: "记录我如何维护和更新这个个人博客。"
+date: "2026-06-10"
+tags:
+  - Blog
+  - 维护
+  - 学习
 ---
 
-<ArticleLayout
-  title="我的博客维护日志"
-  description="记录我如何维护和更新这个个人博客。"
-  date="2026-06-10"
-  tags={["Blog", "维护", "学习"]}
-  readingTime="3 min"
->
-  <p>
-    这里写正文第一段。
-  </p>
+这里写正文第一段。
 
-  <h2>小标题</h2>
+## 小标题
 
-  <p>
-    这里继续写正文。
-  </p>
-</ArticleLayout>
+这里继续写正文。
 ```
 
-### 2. 把文章加入列表
+文件名就是文章网址。比如 `blog-maintenance-log.md` 会生成 `/writing/blog-maintenance-log/`。
 
-打开：
+如果文章还没写完，可以在顶部加一行：
 
-```text
-src/data/posts.ts
+```md
+draft: true
 ```
 
-在 `posts` 数组里加一项：
+这样文章不会出现在首页、文章列表，也不会生成公开网页。
 
-```ts
-{
-  title: "我的博客维护日志",
-  slug: "blog-maintenance-log",
-  href: "/writing/blog-maintenance-log/",
-  excerpt: "记录我如何维护和更新这个个人博客。",
-  date: "2026-06-10",
-  tags: ["Blog", "维护", "学习"],
-  readingTime: "3 min"
-}
-```
-
-### 3. 本地检查
+### 2. 本地检查
 
 ```bash
 npm run dev
@@ -250,13 +249,19 @@ npm run dev
 - `/writing/` 是否出现新文章
 - `/writing/blog-maintenance-log/` 是否能打开
 
-### 4. 构建、提交、推送
+### 3. 构建、提交、推送
 
 ```bash
 npm run build
 git add .
 git commit -m "docs: add blog maintenance log"
 git push
+```
+
+更完整的长文写法可以看：
+
+```text
+docs/blog-writing-guide.md
 ```
 
 ## 修改头像或图片

@@ -1,5 +1,6 @@
 ---
 import { ArrowLeft } from "@lucide/astro";
+import type { MarkdownHeading } from "astro";
 import BaseLayout from "./BaseLayout.astro";
 
 interface Props {
@@ -8,9 +9,11 @@ interface Props {
   date: string;
   tags: string[];
   readingTime: string;
+  headings?: MarkdownHeading[];
 }
 
-const { title, description, date, tags, readingTime } = Astro.props;
+const { title, description, date, tags, readingTime, headings = [] } = Astro.props;
+const tocHeadings = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 3);
 const displayDate = new Intl.DateTimeFormat("zh-CN", {
   year: "numeric",
   month: "2-digit",
@@ -34,6 +37,22 @@ const displayDate = new Intl.DateTimeFormat("zh-CN", {
         {tags.map((tag) => <span>{tag}</span>)}
       </div>
     </header>
+    {
+      tocHeadings.length > 0 && (
+        <nav class="article-toc" aria-label="文章目录">
+          <p>目录</p>
+          <ol>
+            {
+              tocHeadings.map((heading) => (
+                <li class={`toc-depth-${heading.depth}`}>
+                  <a href={`#${heading.slug}`}>{heading.text}</a>
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+      )
+    }
     <div class="article-body">
       <slot />
     </div>

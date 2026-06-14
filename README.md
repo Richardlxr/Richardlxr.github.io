@@ -23,12 +23,15 @@ npm run build
 
 ## Structure
 
-- `src/pages/` - homepage, writing pages, project pages, and about page
-- `src/data/posts.ts` - article metadata for lists
+- `src/pages/` - homepage, writing index, dynamic article route, project pages, and about page
+- `src/content/posts/` - Markdown articles
+- `src/content.config.ts` - article frontmatter schema
+- `src/data/posts.ts` - article list helpers
 - `src/data/projects.ts` - project metadata for cards
 - `src/styles/global.css` - site theme, layout, motion, and responsive styles
 - `public/images/profile-avatar.webp` - homepage avatar artwork
 - `.github/workflows/deploy.yml` - GitHub Pages deployment workflow
+- `docs/blog-writing-guide.md` - long-form Markdown writing guide
 
 Original implementation plan:
 

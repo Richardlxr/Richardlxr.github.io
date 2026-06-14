@@ -1069,22 +1069,194 @@ main {
   backdrop-filter: blur(12px);
 }
 
+.article-toc {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+  border: 1px solid color-mix(in srgb, var(--violet) 28%, var(--line));
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--violet-soft) 58%, var(--paper-strong)), color-mix(in srgb, var(--paper-strong) 84%, transparent));
+  padding: 18px 20px 18px 22px;
+  box-shadow: 0 12px 32px rgba(63, 39, 91, 0.08);
+}
+
+.article-toc::before {
+  position: absolute;
+  inset: 16px auto 16px 0;
+  width: 4px;
+  border-radius: 0 999px 999px 0;
+  content: "";
+  background: linear-gradient(180deg, var(--sakura), var(--violet), var(--gold));
+}
+
+.article-toc p {
+  color: var(--violet);
+  font-size: 0.96rem;
+  font-weight: 900;
+}
+
+.article-toc ol {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-toc li {
+  min-width: 0;
+}
+
+.article-toc a {
+  display: inline-flex;
+  color: var(--ink-strong);
+  font-size: 1rem;
+  font-weight: 880;
+  line-height: 1.45;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.article-toc a:hover {
+  color: var(--violet);
+  transform: translateX(2px);
+}
+
+.article-toc .toc-depth-3 {
+  position: relative;
+  padding-left: 22px;
+}
+
+.article-toc .toc-depth-3::before {
+  position: absolute;
+  top: 0.78em;
+  left: 6px;
+  width: 7px;
+  height: 2px;
+  border-radius: 999px;
+  content: "";
+  background: var(--line-strong);
+}
+
+.article-toc .toc-depth-3 a {
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-weight: 780;
+}
+
 .article-body {
   display: grid;
-  gap: 20px;
-  padding: 32px 0 0;
+  gap: 24px;
+  padding: 38px 0 0;
   color: var(--ink);
-  font-size: 1.06rem;
+  font-size: 1.08rem;
+  line-height: 1.9;
+}
+
+.article-body h2,
+.article-body h3 {
+  margin-top: 24px;
 }
 
 .article-body h2 {
-  margin-top: 16px;
-  font-size: 1.45rem;
+  border-top: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
+  padding-top: 28px;
+  color: var(--ink-strong);
+  font-size: 1.58rem;
 }
 
-.article-body p {
+.article-body h2:first-child {
+  margin-top: 0;
+  border-top: 0;
+  padding-top: 0;
+}
+
+.article-body h3 {
+  color: var(--ink-strong);
+  font-size: 1.24rem;
+}
+
+.article-body p,
+.article-body li {
   color: var(--ink);
   overflow-wrap: anywhere;
+}
+
+.article-body ul,
+.article-body ol {
+  margin: 0;
+  border-left: 3px solid color-mix(in srgb, var(--violet) 42%, transparent);
+  padding: 2px 0 2px 1.35em;
+}
+
+.article-body li + li {
+  margin-top: 10px;
+}
+
+.article-body a {
+  color: var(--violet);
+  font-weight: 850;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--sakura) 54%, transparent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.article-body blockquote {
+  margin: 8px 0;
+  border: 1px solid color-mix(in srgb, var(--sakura) 34%, var(--line));
+  border-left: 5px solid var(--sakura);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--sakura-soft) 45%, transparent);
+  padding: 16px 18px;
+  color: var(--ink-strong);
+  font-size: 1.06rem;
+  font-weight: 760;
+  line-height: 1.75;
+}
+
+.article-body blockquote p {
+  color: inherit;
+}
+
+.article-body code {
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--paper-soft);
+  padding: 0.1em 0.35em;
+  color: var(--violet);
+  font-size: 0.92em;
+}
+
+.article-body pre {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-strong);
+  padding: 16px;
+  color: var(--paper-strong);
+}
+
+.article-body pre code {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.article-body img {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 14px 36px rgba(63, 39, 91, 0.12);
+}
+
+.article-body hr {
+  width: 100%;
+  height: 1px;
+  border: 0;
+  background: var(--line);
 }
 
 .not-found {
