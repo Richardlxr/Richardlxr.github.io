@@ -53,6 +53,8 @@ src/data/posts.ts
 
 文章列表辅助代码。首页和文章列表页会从 Markdown 文章自动生成标题、摘要、日期、标签和链接。
 
+首页“最近文章”默认显示按日期排序后的最近 6 篇。完整文章列表在 `/writing/`。
+
 ```text
 src/data/projects.ts
 ```

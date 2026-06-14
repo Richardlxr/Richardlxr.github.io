@@ -13,11 +13,10 @@ import {
 import PostCard from "../components/PostCard.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getPosts } from "../data/posts";
+import { getRecentPosts } from "../data/posts";
 import { projects } from "../data/projects";
 
-const posts = await getPosts();
-const featuredPosts = posts.slice(0, 3);
+const featuredPosts = await getRecentPosts();
 const featuredProjects = projects.slice(0, 3);
 ---
 

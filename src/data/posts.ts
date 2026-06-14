@@ -12,6 +12,8 @@ export type Post = {
 
 type PostEntry = CollectionEntry<"posts">;
 
+const DEFAULT_RECENT_POST_LIMIT = 6;
+
 export function getPostReadingTime(post: PostEntry) {
   const body = post.body ?? "";
   const withoutCodeBlocks = body.replace(/```[\s\S]*?```/g, " ");
@@ -26,6 +28,16 @@ export function getPostReadingTime(post: PostEntry) {
   const minutes = Math.max(1, Math.ceil(cjkCharacters / 450 + latinWords / 220));
 
   return `${minutes} min`;
+}
+
+function sortPostsByDateDesc(a: PostEntry, b: PostEntry) {
+  const dateDiff = Date.parse(b.data.date) - Date.parse(a.data.date);
+
+  if (dateDiff !== 0) {
+    return dateDiff;
+  }
+
+  return a.data.title.localeCompare(b.data.title, "zh-CN");
 }
 
 function toPost(post: PostEntry): Post {
@@ -43,9 +55,13 @@ function toPost(post: PostEntry): Post {
 export async function getPosts() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
 
-  return posts
-    .sort((a, b) => Date.parse(b.data.date) - Date.parse(a.data.date))
-    .map(toPost);
+  return posts.sort(sortPostsByDateDesc).map(toPost);
+}
+
+export async function getRecentPosts(limit = DEFAULT_RECENT_POST_LIMIT) {
+  const posts = await getPosts();
+
+  return posts.slice(0, limit);
 }
 
 export async function getPostBySlug(slug: string) {
