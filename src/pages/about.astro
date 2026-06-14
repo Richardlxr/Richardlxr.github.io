@@ -1,65 +1,97 @@
 ---
-import { BookOpen, GitBranch, GraduationCap, MapPin, Sparkles, Zap } from "@lucide/astro";
+import {
+    BookOpen,
+    GitBranch,
+    GraduationCap,
+    MapPin,
+    Sparkles,
+    Zap,
+} from "@lucide/astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="About" description="关于 Richard_L 的个人简介。">
-  <section class="about-hero">
-    <div>
-      <p class="eyebrow">@Richardlxr · About</p>
-      <h1>关于 Richard_L</h1>
-      <p>
-        我在这里记录编程学习、工具实验和项目复盘。当前重点是 C++、数据结构，以及如何更自然地把 AI Agent 放进学习和开发流程里。
-      </p>
-      <div class="hero-actions">
-        <a class="button button-primary" href="https://github.com/Richardlxr" target="_blank" rel="noreferrer">
-          <GitBranch size={18} stroke-width={2.2} aria-hidden="true" />
-          GitHub
-        </a>
-        <a class="button" href="/writing/">
-          <BookOpen size={18} stroke-width={2.2} aria-hidden="true" />
-          Writing
-        </a>
-      </div>
-    </div>
-    <div class="about-avatar animated-avatar">
-      <span class="avatar-orbit avatar-orbit-one" aria-hidden="true"></span>
-      <span class="avatar-bolt avatar-bolt-one" aria-hidden="true"></span>
-      <span class="avatar-blossom avatar-blossom-one" aria-hidden="true"></span>
-      <div class="avatar-image-shell">
-        <img src="/images/profile-avatar.webp" alt="个人博客头像" width="420" height="420" loading="eager" />
-      </div>
-    </div>
-  </section>
+    <section class="about-hero">
+        <div>
+            <p class="eyebrow">@Richardlxr · About</p>
+            <h1>关于 Richard_L</h1>
+            <p>
+                我在这里记录编程学习、工具实验和项目复盘。当前重点是
+                C++、数据结构，以及如何更自然地把 AI Agent
+                放进学习和开发流程里。
+            </p>
+            <div class="hero-actions">
+                <a
+                    class="button button-primary"
+                    href="https://github.com/Richardlxr"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <GitBranch
+                        size={18}
+                        stroke-width={2.2}
+                        aria-hidden="true"
+                    />
+                    GitHub
+                </a>
+                <a class="button" href="/writing/">
+                    <BookOpen size={18} stroke-width={2.2} aria-hidden="true" />
+                    Writing
+                </a>
+            </div>
+        </div>
+        <div class="about-avatar animated-avatar">
+            <span class="avatar-orbit avatar-orbit-one" aria-hidden="true"
+            ></span>
+            <span class="avatar-bolt avatar-bolt-one" aria-hidden="true"></span>
+            <span class="avatar-blossom avatar-blossom-one" aria-hidden="true"
+            ></span>
+            <div class="avatar-image-shell">
+                <img
+                    src="/images/profile-avatar.webp"
+                    alt="个人博客头像"
+                    width="420"
+                    height="420"
+                    loading="eager"
+                />
+            </div>
+        </div>
+    </section>
 
-  <section class="content-section page-section" aria-labelledby="about-focus">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">Focus</p>
-        <h2 id="about-focus">现在关注</h2>
-      </div>
-    </div>
-    <div class="about-grid">
-      <article>
-        <MapPin size={20} stroke-width={2.2} aria-hidden="true" />
-        <strong>坐标</strong>
-        <p>上海交通大学相关学习与项目实践。</p>
-      </article>
-      <article>
-        <GraduationCap size={20} stroke-width={2.2} aria-hidden="true" />
-        <strong>学习</strong>
-        <p>把 C++ 与数据结构从“会写”推进到“写得稳”。</p>
-      </article>
-      <article>
-        <Zap size={20} stroke-width={2.2} aria-hidden="true" />
-        <strong>工具</strong>
-        <p>探索 AI Agent、自动化脚本和开发流程沉淀。</p>
-      </article>
-      <article>
-        <Sparkles size={20} stroke-width={2.2} aria-hidden="true" />
-        <strong>博客</strong>
-        <p>把项目、笔记和复盘整理成公开可读的个人空间。</p>
-      </article>
-    </div>
-  </section>
+    <section class="content-section page-section" aria-labelledby="about-focus">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Focus</p>
+                <h2 id="about-focus">现在关注</h2>
+            </div>
+        </div>
+        <div class="about-grid">
+            <article>
+                <MapPin size={20} stroke-width={2.2} aria-hidden="true" />
+                <strong>坐标</strong>
+                <p>中国上海-上海交通大学</p>
+            </article>
+            <article>
+                <GraduationCap
+                    size={20}
+                    stroke-width={2.2}
+                    aria-hidden="true"
+                />
+                <strong>学习</strong>
+                <p>尝试增加算法能力、数据结构能力</p>
+            </article>
+            <article>
+                <Zap size={20} stroke-width={2.2} aria-hidden="true" />
+                <strong>工具</strong>
+                <p>探索 AI Agent、自动化脚本和开发流程沉淀。</p>
+            </article>
+            <article>
+                <Sparkles size={20} stroke-width={2.2} aria-hidden="true" />
+                <strong>博客</strong>
+                <p>
+                    把项目、笔记和复盘整理成公开可读的个人空间。也会有生活分享。
+                </p>
+            </article>
+        </div>
+    </section>
 </BaseLayout>
